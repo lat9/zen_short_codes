@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zen Cart ShortCodes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        #navbar-contents {
+            z-index: -1;
+            position: static;
+        }
+
+        #main-container {
+            padding-top: 120px;
+        }
+
+        @media (min-width: 768px) {
+            #navbar-contents {
+                position: fixed;
+                z-index: initial;
+                max-width: 200px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #navbar-contents {
+                max-width: 300px;
+            }
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #6e7581;
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar-contents" data-bs-offset="100">
+    <header>
+        <nav id="navbar-header" class="navbar position-fixed navbar-light bg-light shadow-sm justify-content-center align-items-center container-fluid py-3">
+            <div class="container">
+            <h1 class="mb-1 fs-4">ShortCodes for Zen Cart</h1>
+                <div class="float-md-right text-center text-md-right mt-2 mt-md-0">
+                    <i class="bi-github me-1 align-top"></i> <a href="https://github.com/lat9/zen_short_codes" target="_blank" class="link-secondary text-decoration-none me-4">GitHub Repository</a>
+                    <i class="bi-layout-text-sidebar-reverse me-1 align-top"></i> <a href="https://www.zen-cart.com/forum/showthread.php?p=TBD" target="_blank" class="link-secondary text-decoration-none">Support Thread</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mb-5" id="main-container">
+        <div class="row">
+            <aside class="col-md-4 col-xxl-3">
+                <nav id="navbar-contents" class="navbar navbar-light bg-light flex-column align-items-stretch p-3 shadow-sm mt-4 mt-sm-3 mb-3 my-md-0">
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link link-secondary" href="#item-introduction">Introduction</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link link-secondary ms-3 my-1" href="#item-credits">History and Credits</a>
+                        </nav>
+                        <a class="nav-link link-secondary" href="#item-prerequisites">Prerequisites</a>
+                        <a class="nav-link link-secondary" href="#item-installation">Installation</a>
+                        <a class="nav-link link-secondary" href="#item-usage">Usage</a>
+                        <a class="nav-link link-secondary" href="#item-uninstall">Uninstall</a>
+                        <a class="nav-link link-secondary" href="#item-changelog">Change History</a>
+                    </nav>
+                </nav>
+            </aside>
+            <article class="col-md-8 col-xxl-9 mt-4 mt-md-0 ps-md-4">
+                <section>
+                    <h1 id="item-introduction" class="display-1 fs-2 pb-2">Introduction</h1>
+                    <p>This <em>encapsulated</em> plugin emulates the <samp>shortcode</samp> processing provided by WordPress, enabling a means to inject links to categories and products within your site's category- and product-descriptions, reducing the maintenance required for those links.</p>
+                    <p>For additional information, refer to the plugin's <a href="https://github.com/lat9/zen_short_codes/wiki" target="_blank">GitHub Wiki</a> articles.</p>
+
+                    <h2 id="item-credits" class="fs-4 pt-1 pb-3">History and Credits</h2>
+                    <p>The concept for parsing a shortcode's attributes is based on <a href="https://developer.wordpress.org/reference/functions/shortcode_parse_atts/" target="_blank">this</a> WordPress documentation.</p>
+                    <p>This readme's formatting based on that originally developed by <a href="https://github.com/marco-pm" _target="blank">@marco-pm</a>.</p>
+                </section>
+
+                <section>
+                    <h1 id="item-prerequisites" class="display-1 fs-2 pb-2 pt-4">Prerequisites</h1>
+                    <ul class="mt-3">
+                        <li>A Zen Cart installation, v1.5.8 or later.</li>
+                        <li class="mt-1">PHP 8.0 or later.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1 id="item-installation" class="display-1 fs-2 pb-2 pt-4">Installation</h1>
+                    <p>The feature is released as a Zen Cart <em>encapsulated plugin</em>, so installation (and removal) is simplified.</p>
+                    <ol>
+                        <li><em>Merge</em> the plugin's <code>/zc_plugins</code> directory with your site's pre-existing <code>/zc_plugins</code> directory.</li>
+                        <li>Log into your Zen Cart admin panel.</li>
+                        <li>Use the admin menus, navigating to <em>Modules :: Plugin Manager</em>.</li>
+                        <li>You'll see a plugin named <b>Zen Cart ShortCodes</b>; click the <em>Install</em> button for the plugin.  That's it!</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h1 id="item-usage" class="display-1 fs-2 pb-2 pt-4">Usage</h1>
+                    <p>Once you've installed the plugin, you can enter shortcodes in your product- and category-descriptions.  Those shortcodes are 'converted' into the appropriate links to the product or category when displayed on your site's storefront. Refer to the plugin's <a href="https://github.com/lat9/zen_short_codes/wiki" target="_blank">GitHub Wiki</a> articles for additional information.</p>
+                </section>
+
+                <section>
+                    <h1 id="item-uninstall" class="display-1 fs-2 pb-2 pt-4">Uninstall</h1>
+                    <p>To uninstall the report, navigate to the admin's <em>Modules :: Plugin Manager</em>, find the line-item for <em>Zen Cart ShortCodes</em> and click the <em>Un-Install</em> button.</p>
+                </section>
+
+                <section>
+                    <h1 id="item-changelog" class="display-1 fs-2 pb-2 pt-4">Change History</h1>
+                    <p>You can view the details of these changes on the plugin's <a href="https://github.com/lat9/zen_short_codes" target="_blank" class="link-secondary">GitHub repository</a>.</p>
+                    <ul>
+                        <li>v1.0.0, 2024-07-15 (lat9): Initial release.</li>
+                    </ul>
+                </section>
+            </article>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
