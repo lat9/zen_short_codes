@@ -1,4 +1,13 @@
 <?php
+// -----
+// Part of the "Zen Cart Shortcodes" plugin for Zen Cart v1.5.8 or later
+//
+// Copyright (c) 2024, Vinos de Frutas Tropicales (lat9)
+//
+use App\Models\PluginControl;
+use App\Models\PluginControlVersion;
+use Zencart\PluginManager\PluginManager;
+
 class ShortCodeController extends ZenShortcode
 {
     //- Concept provided by https://developer.wordpress.org/reference/functions/shortcode_parse_atts/
@@ -12,11 +21,43 @@ class ShortCodeController extends ZenShortcode
     {
         $this->classesDir = $classes_dir;
 
+        // -----
+        // Pull in any shortcode handlers provided by *this* plugin.
+        //
         $handlers = glob($classes_dir . 'ShortCodes/*.php');
-        if (is_dir(DIR_WS_CLASSES . 'ShortCodes/')) {
-            $extra_handlers = glob(DIR_WS_CLASSES . 'ShortCodes/*.php');
-            $handlers = array_merge($handlers, $extra_handlers);
+
+        // -----
+        // Next, check to see if any shortcodes have been provided by *other*
+        // zc_plugins.
+        //
+        $pluginManager = new PluginManager(new PluginControl(), new \App\Models\PluginControlVersion());
+        $installedPlugins = $pluginManager->getInstalledPlugins();
+        foreach ($installedPlugins as $plugin) {
+            if ($plugin['unique_key'] === 'ZenShortCodes') {
+                continue;
+            }
+
+            $dir_plugin_fs_shortcode_classes = DIR_FS_CATALOG . 'zc_plugins/' . $plugin['unique_key'] . '/' . $plugin['version'] . '/catalog/includes/classes/ShortCodes/';
+            if (!is_dir($dir_plugin_fs_shortcode_classes)) {
+                continue;
+            }
+            $handlers = array_merge($handlers, glob($dir_plugin_fs_shortcode_classes . '*.php'));
         }
+
+        // -----
+        // Finally, check the /includes/classes/ShortCodes directory.  Any
+        // shortcodes there will override those provided in this
+        // plugin and any provided by additional zc_plugins!
+        //
+        if (is_dir(DIR_WS_CLASSES . 'ShortCodes/')) {
+            $handlers = array_merge($handlers, glob(DIR_WS_CLASSES . 'ShortCodes/*.php'));
+        }
+
+        // -----
+        // Now that all shortcode handlers have been determined, load the associated
+        // handler's class-file and set its instance into this class' handlers
+        // array.
+        //
         foreach ($handlers as $next_handler) {
             require $next_handler;
 
@@ -51,6 +92,10 @@ class ShortCodeController extends ZenShortcode
         return $text;
     }
 
+    // -----
+    // Non-functional, but required since this class extends the abstract
+    // class ZenShortcode, which includes this method.
+    //
     public function get(array $parameters): string
     {
         return '';

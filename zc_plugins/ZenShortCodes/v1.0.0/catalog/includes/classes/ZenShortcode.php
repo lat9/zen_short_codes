@@ -1,4 +1,9 @@
 <?php
+// -----
+// Part of the "Zen Cart Shortcodes" plugin for Zen Cart v1.5.8 or later
+//
+// Copyright (c) 2024, Vinos de Frutas Tropicales (lat9)
+//
 abstract class ZenShortcode
 {
     public final static function getAllShortcodes(): array
