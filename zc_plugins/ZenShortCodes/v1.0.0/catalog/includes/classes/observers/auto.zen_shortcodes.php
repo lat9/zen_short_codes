@@ -19,6 +19,9 @@ class zcObserverZenShortcodes extends base
 
             //- From "News Box Manager v3" /includes/modules/pages/article/header_php.php
             'NOTIFY_HEADER_ARTICLE_END',
+
+            //- From "Google Product Search Feed II" extension provided by this plugin
+            'NOTIFY_GPSF_SHORTCODES_DESCRIPTION',
         ];
         if (class_exists('Product')) {
             $attach_array[] = 'NOTIFY_GET_PRODUCT_OBJECT_DETAILS'; //- From /includes/classes/Product.php, zc210+
@@ -80,14 +83,26 @@ class zcObserverZenShortcodes extends base
         $news_content = $this->zcsc->convertShortCodes($news_content);
     }
 
+    public function notify_gpsf_shortcodes_description(&$class, $eventID, $unused, &$products_description)
+    {
+        if (empty($products_description)) {
+            return;
+        }
+        $this->loadShortCodeController();
+        if ($this->zcsc->getShortCodeHandlerCount() === 0) {
+            return;
+        }
+        $products_description = $this->zcsc->convertShortCodes($products_description);
+    }
+
     private function loadShortCodeController()
     {
         if (isset($this->zcsc)) {
             return;
         }
         $classes_dir = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
-        require $classes_dir . 'ShortCodes/ZenShortcode.php';
-        require $classes_dir . 'ShortCodes/ShortCodeController.php';
+        require $classes_dir . 'ZenShortcode.php';
+        require $classes_dir . 'ShortCodeController.php';
 
         $this->zcsc = new ShortCodeController($classes_dir);
     }

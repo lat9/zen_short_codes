@@ -1,15 +1,4 @@
 <?php
-// -----
-// Part of the "Zen Cart Shortcodes" plugin for Zen Cart v1.5.8 or later
-//
-// Copyright (c) 2024, Vinos de Frutas Tropicales (lat9)
-//
-// Generates a link to a product, based on shortcode specification
-//
-// Usage:
-//
-// [zenprod id=3 {text="replacement link text"} {href_only=true|false}]
-//
 class zenprod extends ZenShortcode
 {
     public function __construct()

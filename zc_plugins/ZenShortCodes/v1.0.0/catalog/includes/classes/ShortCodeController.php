@@ -1,13 +1,7 @@
 <?php
-// -----
-// Part of the "Zen Cart Shortcodes" plugin for Zen Cart v1.5.8 or later
-//
-// Copyright (c) 2024, Vinos de Frutas Tropicales (lat9)
-//
-// Concept for parsing shortcode attributes provided by https://developer.wordpress.org/reference/functions/shortcode_parse_atts/
-//
 class ShortCodeController extends ZenShortcode
 {
+    //- Concept provided by https://developer.wordpress.org/reference/functions/shortcode_parse_atts/
     protected const ATTS_REGEX = '/([\w-]+)\s*=\s*"([^"]*)"(?:\s|$)|([\w-]+)\s*=\s*\'([^\']*)\'(?:\s|$)|([\w-]+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|\'([^\']*)\'(?:\s|$)|(\S+)(?:\s|$)/';
 
     private array $handlers = [];
@@ -18,9 +12,9 @@ class ShortCodeController extends ZenShortcode
     {
         $this->classesDir = $classes_dir;
 
-        $handlers = glob($classes_dir . 'ShortCodes/handlers/*.php');
-        if (is_dir(DIR_WS_CLASSES . 'ShortCodes/handlers/')) {
-            $extra_handlers = glob(DIR_WS_CLASSES . 'ShortCodes/handlers/*.php');
+        $handlers = glob($classes_dir . 'ShortCodes/*.php');
+        if (is_dir(DIR_WS_CLASSES . 'ShortCodes/')) {
+            $extra_handlers = glob(DIR_WS_CLASSES . 'ShortCodes/*.php');
             $handlers = array_merge($handlers, $extra_handlers);
         }
         foreach ($handlers as $next_handler) {
@@ -74,6 +68,7 @@ class ShortCodeController extends ZenShortcode
         return $output_array;
     }
 
+    //- Concept provided by https://developer.wordpress.org/reference/functions/shortcode_parse_atts/
     protected function parseShortCodeAttribute(string $text): array
     {
         $atts = [];
