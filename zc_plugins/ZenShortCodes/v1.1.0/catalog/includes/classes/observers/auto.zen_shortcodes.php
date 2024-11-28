@@ -24,6 +24,9 @@ class zcObserverZenShortcodes extends base
 
             //- From "Google Product Search Feed II" extension provided by this plugin
             'NOTIFY_GPSF_SHORTCODES_DESCRIPTION',
+
+            //- From /includes/modules/pages/page/header_php.php
+            'NOTIFY_HEADER_END_EZPAGE',
         ];
         if (class_exists('Product')) {
             $attach_array[] = 'NOTIFY_GET_PRODUCT_OBJECT_DETAILS'; //- From /includes/classes/Product.php, zc210+
@@ -117,6 +120,21 @@ class zcObserverZenShortcodes extends base
             return;
         }
         $products_description = $this->zcsc->convertShortCodes($products_description);
+    }
+
+    public function notify_header_end_ezpage(&$class, $eventID)
+    {
+        global $var_pageDetails;
+
+        if (empty($var_pageDetails->fields['pages_html_text'])) {
+            return;
+        }
+
+        $this->loadShortCodeController();
+        if ($this->zcsc->getShortCodeHandlerCount() === 0) {
+            return;
+        }
+        $var_pageDetails->fields['pages_html_text'] = $this->zcsc->convertShortCodes($var_pageDetails->fields['pages_html_text']);
     }
 
     private function loadShortCodeController()
