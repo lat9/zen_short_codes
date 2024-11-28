@@ -1,6 +1,6 @@
 <?php
 return [
-    'pluginVersion' => 'v1.0.0',
+    'pluginVersion' => 'v1.1.0',
     'pluginName' => 'Zen Cart ShortCodes',
     'pluginDescription' => 'Enable <samp>shortcodes</samp> to be used in product and category descriptions.',
     'pluginAuthor' => 'Vinos de Frutas Tropicales (lat9)',
