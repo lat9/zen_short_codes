@@ -2,7 +2,7 @@
 return [
     'pluginVersion' => 'v1.1.0',
     'pluginName' => 'Zen Cart ShortCodes',
-    'pluginDescription' => 'Enable <samp>shortcodes</samp> to be used in product and category descriptions.',
+    'pluginDescription' => 'Enable <samp>shortcodes</samp> to be used in product and category descriptions and EZ-Page HTML content.',
     'pluginAuthor' => 'Vinos de Frutas Tropicales (lat9)',
     'pluginId' => 0, // ID from Zen Cart forum
     'zcVersions' => [],
