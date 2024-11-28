@@ -4,7 +4,9 @@
 //
 // Copyright (c) 2024, Vinos de Frutas Tropicales (lat9)
 //
-class zcObserverZenShortcodes extends base 
+// Last updated: v1.1.0
+//
+class zcObserverZenShortcodes extends base
 {
     protected $zcsc;
 
@@ -52,9 +54,20 @@ class zcObserverZenShortcodes extends base
         if ($this->zcsc->getShortCodeHandlerCount() === 0) {
             return;
         }
+
+        // -----
+        // Temporarily detach from this notification to prevent potential recursion.
+        //
+        $this->detach($this, 'NOTIFY_GET_PRODUCT_OBJECT_DETAILS');
+
         foreach ($data['lang'] as $lang_code => &$lang_info) {
             $lang_info['products_description'] = $this->zcsc->convertShortCodes($lang_info['products_description']);
         }
+
+        // -----
+        // Re-attach to the notification ... to support product listing pages.
+        //
+        $this->attach($this, 'NOTIFY_GET_PRODUCT_OBJECT_DETAILS');
     }
 
     public function notify_get_product_details(&$class, $eventID, $products_id, &$data)
@@ -66,7 +79,18 @@ class zcObserverZenShortcodes extends base
         if ($this->zcsc->getShortCodeHandlerCount() === 0) {
             return;
         }
+
+        // -----
+        // Temporarily detach from this notification to prevent potential recursion.
+        //
+        $this->detach($this, 'NOTIFY_GET_PRODUCT_DETAILS');
+
         $data->fields['products_description'] = $this->zcsc->convertShortCodes($data->fields['products_description']);
+
+        // -----
+        // Re-attach to the notification ... to support product listing pages.
+        //
+        $this->attach($this, 'NOTIFY_GET_PRODUCT_DETAILS');
     }
 
     protected function notify_header_article_end(&$class, $eventID)
