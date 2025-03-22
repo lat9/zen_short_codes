@@ -63,8 +63,8 @@ class zcObserverZenShortcodes extends base
         //
         $this->detach($this, ['NOTIFY_GET_PRODUCT_OBJECT_DETAILS']);
 
-        foreach ($data['lang'] as $lang_id => &$lang_info) {
-            if ($lang_id != $_SESSION['languages_id']) {
+        foreach ($data['lang'] as $lang_code => &$lang_info) {
+            if ($lang_code !== $_SESSION['languages_code']) {
                 continue;
             }
             $lang_info['products_description'] = $this->zcsc->convertShortCodes($lang_info['products_description']);
