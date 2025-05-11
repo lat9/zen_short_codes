@@ -2,7 +2,7 @@
 // -----
 // Part of the "Zen Cart Shortcodes" plugin for Zen Cart v1.5.8 or later
 //
-// Copyright (c) 2024, Vinos de Frutas Tropicales (lat9)
+// Copyright (c) 2024-2025, Vinos de Frutas Tropicales (lat9)
 //
 class zenprod extends ZenShortcode
 {
@@ -25,6 +25,14 @@ class zenprod extends ZenShortcode
         $href_only = $href_only ?? 'false';
         if ($href_only !== 'true') {
             $text = $text ?? zen_get_products_name($products_id);
+            if (($use_image ?? 'false') === 'true') {
+                $width = $image_width ?? SMALL_IMAGE_WIDTH;
+                $height = $image_height ?? SMALL_IMAGE_HEIGHT;
+                $text = zen_get_products_image($products_id, $width, $height);
+                if ($text === '') {
+                    $text = "<!-- zenprod, product image is empty for id $products_id -->";
+                }
+            }
             $product_link = '<a href="' . $product_link . '">' . $text . '</a>';
         }
         return $product_link;

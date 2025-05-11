@@ -10,7 +10,7 @@ use Zencart\PluginManager\PluginManager;
 
 class ShortCodeController extends ZenShortcode
 {
-    //- Concept provided by https://developer.wordpress.org/reference/functions/shortcode_parse_atts/
+    //- Concept provided by https://developer.wordpress.org/reference/functions/get_shortcode_atts_regex/
     protected const ATTS_REGEX = '/([\w-]+)\s*=\s*"([^"]*)"(?:\s|$)|([\w-]+)\s*=\s*\'([^\']*)\'(?:\s|$)|([\w-]+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|\'([^\']*)\'(?:\s|$)|(\S+)(?:\s|$)/';
 
     private array $handlers = [];
